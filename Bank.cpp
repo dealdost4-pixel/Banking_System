@@ -94,6 +94,53 @@ void Bank::createAccount(){
 
 void Bank::closeAccount(){
 
+    ifstream file;
+
+    int choise;
+    cout<<"Which account do you have: "<<endl;
+    cout<<"1. Saving Account  "<<endl;
+    cout<<"2. Current Account "<<endl;
+    cout<<"Choose: ";
+    cin>>choise;
+    if(choise==1){
+        file.open("SavingAccount.txt");
+    }
+    if(choise==2){
+        file.open("CurrentAccount.txt");     
+    }
+   
+    char choice;
+    cout<<"Do you want to close account (y=yes/n=no):";
+    cin>>choice;
+    int searchNIC;
+    if(choice=='y'){
+        cout<<"Enter NIC: ";
+        cin>>searchNIC;
+
+        bool found=false;
+
+        while(file>>Username>>fatherName>>NIC>>age>>profession){
+            if(searchNIC==NIC){
+                cout<<"Account Found"<<endl;
+                cout<<"Name: "<<Username<<endl;
+                cout<<"Father name: "<<fatherName<<endl;
+                cout<<"NIC: "<<NIC<<endl;
+                cout<<"Profession: "<<profession<<endl;
+
+                found=true;
+
+                break;
+            }
+        }
+
+        if(!found){
+            cout<<"File does not found......"<<endl;
+        }
+
+        
+    }
+
+    file.close();
 }
 
 void Bank::searchAccount(){
