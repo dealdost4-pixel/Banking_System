@@ -1,5 +1,6 @@
 #include<iostream>
-#include<fstream>>
+#include<fstream>
+#include<cstdio>
 #include "Bank.h"
 using namespace std;
 
@@ -94,33 +95,35 @@ void Bank::createAccount(){
 
 void Bank::closeAccount(){
     ifstream file;
-    ofstream tempfile("TempAccount.txt");
+    ofstream tempfile("TempAccount.txt");           //Creating temperory file to store data
 
-    string filename,line;
+    string filename,line;                          //Creating temp string to extract data from original file 
 
     int choise;
-    cout<<"_____________________________"<<endl;
+    cout<<"_____________________________"<<endl;              //Option for selecting there account
     cout<<"|Which account do you have:  |"<<endl;
     cout<<"| 1. Saving Account          |"<<endl;
     cout<<"| 2. Current Account         |"<<endl;
     cout<<"|____________________________|"<<endl;
     cout<<"Choose: ";
     cin>>choise;
-    if(choise==1){
+    if(choise==1){                                      
         filename="SavingAccont.txt";
         //filestore=filename;
-        file.open(filename);
+        file.open(filename);                           //opening saving account
 
-        while(getline(file,line)){
+        while(getline(file,line)){                      //storing data of saving account into temp file
             tempfile<<line<<endl;
         }
+
+        
     }
     if(choise==2){
-        filename="CurrentAccount.txt";
+        filename="CurrentAccount.txt";                
         //filestore=filename;
-        file.open(filename); 
+        file.open(filename);                            //opening current account
         
-        while(getline(file,line)){
+        while(getline(file,line)){                      //storing data of current account into temp file
             tempfile<<line<<endl;
         }
     } 
@@ -130,22 +133,22 @@ void Bank::closeAccount(){
     char choice;
     cout<<"Do you want to close account (y=yes/n=no):";
     cin>>choice;
-    int searchNIC;
+    int searchNIC;                                            
     if(choice=='y'){
         cout<<"Enter NIC: ";
-        cin>>searchNIC;
+        cin>>searchNIC;                                 //Asking to write the NIC to search that account
 
-        bool found=false;
+        bool found=false;                               //Assuming first account is not found
 
-        while(file>>Username>>fatherName>>NIC>>age>>profession){
-            if(searchNIC==NIC){
+        while(file>>Username>>fatherName>>NIC>>age>>profession){   //Extracting data from file 
+            if(searchNIC==NIC){                                    //Matching NIC from user given NIC
                 cout<<"Account Found"<<endl;
                 cout<<"Name: "<<Username<<endl;
                 cout<<"Father name: "<<fatherName<<endl;
                 cout<<"NIC: "<<NIC<<endl;
                 cout<<"Profession: "<<profession<<endl;
 
-                found=true;
+                found=true;                                 //Now saying account found
 
                 break;
             }
@@ -158,7 +161,12 @@ void Bank::closeAccount(){
         
     }
 
-    file.close();
+    file.close();                                              //Now closing file after work
+
+    // remove(file);
+    // rename("temp.txt","Saving.txt");
+
+    // cout<<"File remove finished!"<<endl;
 
     
 }
